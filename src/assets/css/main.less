@@ -1,0 +1,51 @@
+.home-container {
+  .left-menu {
+    width: 180px;
+    height: 100%;
+    position: fixed;
+    ul {
+      height: 100%;
+    }
+  }
+  .right-content {
+    margin-left: 180px;
+    transition: margin-left .3s;
+    &.menu-unfold {
+      margin-left: 80px;
+    }
+    .header {
+      height: 50px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      .toggle-button {
+        padding: 0 10px;
+      }
+      .user-info {
+        min-width: 100px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        position: absolute;
+        right: 10px;
+        z-index: 100;
+        .btn {
+          display: none;
+        }
+        &:hover {
+          .btn {
+            display: block;
+          }
+          .btn:hover {
+            color: #000;
+            font-weight: bold;
+            background-color: rgba(170, 164, 164, 0.521);
+          }
+        }
+      }
+    }
+    .card {
+      padding-top: 10px;
+    }
+  }
+}
