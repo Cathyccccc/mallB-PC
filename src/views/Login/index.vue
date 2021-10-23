@@ -5,8 +5,8 @@
     ref="ruleForm"
     :model="form"
     :rules="rules"
-    :label-col="labelCol"
-    :wrapper-col="wrapperCol"
+    :label-col="{ span: 4 }"
+    :wrapper-col="{ span: 14 }"
   >
     <a-form-model-item label="邮箱" prop="email">
       <a-input v-model="form.eamil" type="text" />
@@ -29,20 +29,17 @@
 export default {
   data() {
     return {
-      labelCol: { span: 4 },
-      wrapperCol: { span: 14 },
-      other: '',
       form: {
         email: '',
         password: '',
       },
       rules: {
         email: [{ required: true, message: '请输入邮箱', trigger: 'blur' },
-          { reg: /[\w@.]+[com|cn]/g, message: '邮箱格式不正确', trigger: 'blur' },
+          { pattern: /^[\w-@.]+@\w+.(com|cn)$/g, message: '邮箱格式不正确', trigger: 'blur' },
         ],
-        password: [{ required: true, message: '请输入密码', trigger: 'change' },
+        password: [{ required: true, message: '请输入密码', trigger: 'blur' },
           {
-            min: 6, max: 16, reg: /\w{6,16}/g, message: '密码由6-16位的数字字母下划线组成', trigger: 'blur',
+            min: 6, max: 16, pattern: /[\w_.]{6,16}/g, message: '密码由6-16位的数字字母下划线组成', trigger: 'blur',
           },
         ],
       },
@@ -67,11 +64,7 @@ export default {
 };
 </script>
 
-<style scoped>
-.logon-container .form {
-  max-width: 500px;
-  border: 1px solid #eee;
-  margin: 100px auto;
-  padding: 60px 0 20px 40px;
-}
+<style scoped lang="less">
+@import url('~@/assets/css/form.less');
+
 </style>
