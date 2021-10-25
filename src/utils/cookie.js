@@ -1,15 +1,26 @@
 import Cookies from 'js-cookie';
 
-function setCookie(name, value) {
-  Cookies.set(name, value);
+function setCookie(userInfo) {
+  const arr = Object.entries(userInfo);
+  arr.forEach((item) => {
+    Cookies.set(item[0], item[1]);
+  });
 }
 
-function getCookie(name) {
-  Cookies.getJSON(name);
+function getCookie() {
+  return {
+    username: Cookies.get('username'),
+    email: Cookies.get('email'),
+    appkey: Cookies.get('appkey'),
+    role: Cookies.get('role'),
+  };
 }
 
-function removeCookie(name) {
-  Cookies.remove(name);
+function removeCookie() {
+  Cookies.remove('username');
+  Cookies.remove('email');
+  Cookies.remove('appkey');
+  Cookies.remove('role');
 }
 
 export default {

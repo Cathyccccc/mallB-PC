@@ -12,8 +12,8 @@
       </a-breadcrumb>
     </div>
     <div class="user-info">
-      <div class="username">用户名<a-icon type="down" /></div>
-      <div class="btn">退出</div>
+      <div class="username">{{ $store.state.user.username }}<a-icon type="down" /></div>
+      <div class="btn" @click="logout">退出</div>
     </div>
   </div>
 </template>
@@ -23,6 +23,11 @@ export default {
   methods: {
     toggleCollapsed() {
       this.$store.dispatch('setCollapsed');
+    },
+    logout() {
+      this.$cookie.removeCookie();
+      this.$store.dispatch('setUser', '');
+      this.$router.push('/login');
     },
   },
 };

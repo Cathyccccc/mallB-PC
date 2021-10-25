@@ -12,14 +12,16 @@
       <a-input v-model="form.username" type="text" />
     </a-form-model-item>
     <a-form-model-item label="邮箱" prop="email">
-      <a-input v-model="form.eamil" type="text" />
+      <a-input v-model="form.email" type="text" />
     </a-form-model-item>
-    <a-form-model-item label="密码" required prop="password">
-      <a-input v-model="form.password" type="text" />
+    <a-form-model-item label="密码" prop="password">
+      <a-input v-model="form.password" type="password" />
     </a-form-model-item>
     <a-form-model-item label="验证码" prop="code">
       <a-input-number v-model="form.code" type="text" />
-      <a-button class="ant-btn" style="margin-left: 20px">获取验证码</a-button>
+      <a-button class="ant-btn" style="margin-left: 20px"
+        @click="getCode"
+      >获取验证码</a-button>
     </a-form-model-item>
     <a-form-model-item label="用户角色" prop="role">
       <a-radio-group v-model="form.role">
@@ -43,6 +45,8 @@
   </div>
 </template>
 <script>
+import user from '@/api/user';
+
 export default {
   data() {
     return {
@@ -57,8 +61,9 @@ export default {
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
         ],
-        email: [{ required: true, message: '请输入邮箱', trigger: 'blur' },
-          { pattern: /^[\w-@.]+@\w+.(com|cn)$/g, message: '邮箱格式不正确', trigger: 'blur' },
+        email: [{
+          required: true, pattern: /^[\w.-]+@\w+\.(com|cn)$/g, message: '邮箱格式不正确', trigger: 'blur',
+        },
         ],
         password: [{ required: true, message: '请输入密码', trigger: 'blur' },
           {
@@ -73,18 +78,24 @@ export default {
   },
   methods: {
     /* eslint-disable consistent-return */
-    onSubmit() {
-      this.$refs.ruleForm.validate((valid) => {
-        if (valid) {
-          alert('submit!');
-        } else {
-          console.log('error submit!!');
-          return false;
-        }
-      });
+    async onSubmit() {
+      try {
+        await user.logon(this.form);
+        this.$router.push('/login');
+      } catch (error) {
+        this.$message.error(error);
+      }
     },
     resetForm() {
       this.$refs.ruleForm.resetFields();
+    },
+    async getCode() {
+      try {
+        const res = await user.getCode(this.form.email);
+        this.$message.success(res.msg);
+      } catch (error) {
+        this.$message.error(error);
+      }
     },
   },
 };
