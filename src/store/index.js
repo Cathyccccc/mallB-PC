@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     collapsed: false, // 左侧菜单栏是否折叠
     user: Cookie.getCookie(),
+    menuRoutes: [],
   },
   mutations: {
     changeCollapsed(state) {
@@ -15,6 +16,9 @@ export default new Vuex.Store({
     },
     changeUser(state, userInfo) {
       state.user = userInfo;
+    },
+    changeMenuRoutes(state, payload) {
+      state.menuRoutes = payload;
     },
   },
   actions: {
@@ -24,6 +28,9 @@ export default new Vuex.Store({
     setUser({ commit }, userInfo) {
       commit('changeUser', userInfo);
       Cookie.setCookie(userInfo);
+    },
+    setMenuRoutes({ commit }, routes) {
+      commit('changeMenuRoutes', routes);
     },
   },
   modules: {

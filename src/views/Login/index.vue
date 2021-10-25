@@ -58,8 +58,8 @@ export default {
       try {
         const res = await user.login(this.form);
         this.$store.dispatch('setUser', res.data);
-        this.$router.push('/');
         this.$message.success('登录成功');
+        this.$router.push('/static');
       } catch (error) {
         this.$message.error(error);
       }

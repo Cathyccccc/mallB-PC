@@ -1,25 +1,34 @@
 <template>
   <a-menu
-    :default-selected-keys="['1']"
-    :default-open-keys="['sub1']"
+    :default-selected-keys="[$route.matched[1] ? $route.matched[1].name : '']"
+    :default-open-keys="[$route.matched[0].name]"
     mode="inline"
     theme="dark"
     :inline-collapsed="$store.state.collapsed"
   >
-    <a-sub-menu key="sub1">
-      <span slot="title"><a-icon type="mail" /><span>首页</span></span>
-      <a-menu-item key="5"> 统计 </a-menu-item>
+    <template v-for="route in $store.state.menuRoutes">
+      <a-sub-menu :key="route.name" v-if="!route.meta.hidden">
+      <span slot="title">
+        <a-icon :type="route.meta.icon" />
+        <span>{{ route.meta.title }}</span>
+      </span>
+      <a-menu-item v-for="child in route.children" :key="child.name">
+        <router-link :to="{ name: child.name }">
+          <a-icon :type="child.meta.icon" />
+          {{ child.meta.title }}
+        </router-link>
+      </a-menu-item>
     </a-sub-menu>
-    <a-sub-menu key="sub2">
-      <span slot="title"><a-icon type="appstore" /><span>商品</span></span>
-      <a-menu-item key="9"> 商品列表 </a-menu-item>
-      <a-menu-item key="10"> 新增商品 </a-menu-item>
-    </a-sub-menu>
+    </template>
   </a-menu>
 </template>
 
 <script>
-export default {};
+export default {
+  // created() {
+  //   console.log(this.$route);
+  // },
+};
 </script>
 
 <style>

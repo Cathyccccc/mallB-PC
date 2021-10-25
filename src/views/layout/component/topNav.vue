@@ -7,8 +7,12 @@
     </div>
     <div class="breadcrumb">
       <a-breadcrumb>
-        <a-breadcrumb-item>首页</a-breadcrumb-item>
-        <a-breadcrumb-item><a href="">统计</a></a-breadcrumb-item>
+        <a-breadcrumb-item >{{ $route.matched[0].meta.title }}</a-breadcrumb-item>
+        <a-breadcrumb-item>
+          <router-link :to="{ name: $route.matched[1].name }">
+            {{ $route.matched[1].meta.title }}
+          </router-link>
+        </a-breadcrumb-item>
       </a-breadcrumb>
     </div>
     <div class="user-info">

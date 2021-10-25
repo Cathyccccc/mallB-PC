@@ -25,10 +25,10 @@
     </a-form-model-item>
     <a-form-model-item label="用户角色" prop="role">
       <a-radio-group v-model="form.role">
-        <a-radio value="1">
+        <a-radio value="coustomer">
           普通用户
         </a-radio>
-        <a-radio value="2">
+        <a-radio value="admin">
           管理用户
         </a-radio>
       </a-radio-group>
@@ -80,7 +80,9 @@ export default {
     /* eslint-disable consistent-return */
     async onSubmit() {
       try {
-        await user.logon(this.form);
+        const res = await user.logon(this.form);
+        // this.$message.success(res.msg);
+        console.log(res);
         this.$router.push('/login');
       } catch (error) {
         this.$message.error(error);
