@@ -58,7 +58,7 @@ const routes = [
     path: '/',
     component: Home,
     name: 'home',
-    redirect: '/static',
+    redirect: '/statis',
     meta: {
       title: '主页',
       hidden: false,

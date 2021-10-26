@@ -59,7 +59,7 @@ export default {
         const res = await user.login(this.form);
         this.$store.dispatch('setUser', res.data);
         this.$message.success('登录成功');
-        this.$router.push('/static');
+        this.$router.push('/statis');
       } catch (error) {
         this.$message.error(error);
       }
