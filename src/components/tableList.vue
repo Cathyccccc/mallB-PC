@@ -95,12 +95,15 @@ export default {
   },
   methods: {
     editProduct(text, record) {
-      console.log(text, record);
+      // console.log(record);
+      this.$emit('edit', record);
     },
     removeProduct(text, record) {
-      console.log(text, record);
+      // console.log(text, record);
+      this.$emit('remove', record);
     },
     changePage(page) {
+      // console.log(page);
       this.$emit('change', page);
     },
   },

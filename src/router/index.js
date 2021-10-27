@@ -40,6 +40,15 @@ const roleRoutes = [
         },
       },
       {
+        path: 'productEdit/:id',
+        component: () => import('@/views/layout/page/productAdd.vue'),
+        name: 'productEdit',
+        meta: {
+          title: '编辑商品',
+          hidden: true,
+        },
+      },
+      {
         path: 'category',
         component: () => import('@/views/layout/page/category.vue'),
         name: 'category',
@@ -112,6 +121,10 @@ router.beforeEach((to, from, next) => {
         const menuRoutes = routes.concat(filterRoutes);
         store.dispatch('setMenuRoutes', menuRoutes).then(() => {
           router.addRoutes(filterRoutes);
+          // filterRoutes.forEach((route) => {
+          //   console.log(route);
+          //   router.addRoute({ path: route.path });
+          // });
           next();
         });
         isAddRoutes = true;

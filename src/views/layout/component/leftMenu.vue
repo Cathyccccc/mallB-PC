@@ -12,12 +12,14 @@
         <a-icon :type="route.meta.icon" />
         <span>{{ route.meta.title }}</span>
       </span>
-      <a-menu-item v-for="child in route.children" :key="child.name">
+      <template v-for="child in route.children">
+        <a-menu-item :key="child.name" v-if="!child.meta.hidden">
         <router-link :to="{ name: child.name }">
           <a-icon :type="child.meta.icon" />
-          {{ child.meta.title }}
-        </router-link>
-      </a-menu-item>
+            {{ child.meta.title }}
+          </router-link>
+        </a-menu-item>
+      </template>
     </a-sub-menu>
     </template>
   </a-menu>
